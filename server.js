@@ -19,21 +19,24 @@ const app = express();
 // Set up default mongoose connection
 // Get Mongoose to use the global promise library
 // Get the default connection
-// Bind connection info to log file
 mongoose.connect(opts.mongodb.dbURL, opts.mongodb.dbOptions);
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
-db.on('error', (err) => { throw new Error(err); });
+db.on('error', err => {
+  throw new Error(err);
+});
 
 // set up middlewares
 app.use(helmet());
-app.use(cors({
-	origin: true,
-	methods: ['PUT', 'GET', 'POST', 'DELETE', 'OPTIONS'],
-	allowedHeaders: ['Content-Type', 'Authorization'],
-	preflighContinues: true,
-	credentials: true,
-}));
+app.use(
+  cors({
+    origin: true,
+    methods: ['PUT', 'GET', 'POST', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    preflighContinues: true,
+    credentials: true,
+  }),
+);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -47,21 +50,21 @@ app.use('/api/v1', Book);
 
 // set up error handling
 app.use((req, res, next) => {
-	const err = new Error('No routes Found!');
-	err.status = 404;
-	next(err);
+  const err = new Error('No routes Found!');
+  err.status = 404;
+  next(err);
 });
 
 if (app.get('env') === 'development') {
-	app.use((err, req, res, next) => {
-		res.status(err.status || 500);
-		res.send({ message: err.message, error: err });
-	});
+  app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+    res.send({ message: err.message, error: err });
+  });
 }
 
 app.use((err, req, res, next) => {
-	res.status(err.status || 500);
-	res.send({ message: err.message, error: {} });
+  res.status(err.status || 500);
+  res.send({ message: err.message, error: {} });
 });
 
 // launch the server

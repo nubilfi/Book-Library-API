@@ -9,7 +9,7 @@ const UserSchema = new Schema({
 	fullname: { type: String },
 	email: { type: String },
 	address: { type: String },
-	phone_number: { type: Number },
+	phoneNumber: { type: Number },
 }, { timestamps: true });
 
 const SALT_WORK_FACTOR = 10;

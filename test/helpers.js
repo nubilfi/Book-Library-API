@@ -1,9 +1,9 @@
 /* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
 const { Mongoose } = require('mongoose');
-const { Mockgoose } = require('mockgoose');
+const { MongoMemoryServer } = require('mongodb-memory-server');
 
 const mongoose = new Mongoose();
-const mockgoose = new Mockgoose(mongoose);
+const mockmongo = new MongoMemoryServer();
 
 const jwt = require('jsonwebtoken');
 const chai = require('chai');
@@ -18,7 +18,7 @@ const Book = require('../models/book_model');
 
 // set up global variable
 global.mongoose = mongoose;
-global.mockgoose = mockgoose;
+global.mockmongo = mockmongo;
 global.jwt = jwt;
 global.supertest = supertest;
 global.chai = chai;
