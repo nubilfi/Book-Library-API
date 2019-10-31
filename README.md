@@ -41,13 +41,3 @@ Make sure there's no error output when you run it, then you can access it in you
 ```
 http://localhost:3245/
 ```
-
-## Feedback
-
-So guys, if you don't mind to help me, you can give me an advice to make my code better.
-
-1. Fork it (<https://github.com/nubilfi/Book-Library-API.git/fork>)
-2. Create your feature branch (`git checkout -b feature/BestPractice`)
-3. Commit your changes (`git commit -am 'Add some BestPractice'`)
-4. Push to the branch (`git push origin feature/BestPractice`)
-5. Create a new Pull Request
