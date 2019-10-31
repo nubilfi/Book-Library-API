@@ -38,12 +38,19 @@ describe('# Testing Author Routes', () => {
   // == In this test it's expected a author list ==
   describe('GET /api/v1/authors', () => {
     before(done => {
-      const author = new Author({
-        fullname: 'John Doe',
-        email: 'john@johndoe.com',
-      });
-      author.save();
-
+      Author.countDocuments({})
+        .then(count => {
+          if (count === 0) {
+            const author = new Author({
+              fullname: 'John Doe',
+              email: 'john@johndoe.com',
+            });
+            author.save();
+          }
+        })
+        .catch(err => {
+          done(err);
+        });
       done();
     });
 
